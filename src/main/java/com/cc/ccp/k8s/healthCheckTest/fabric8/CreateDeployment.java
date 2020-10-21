@@ -16,7 +16,7 @@ public class CreateDeployment {
             log.info("creating deployment");
             Deployment deployment = new DeploymentBuilder()
                     .withNewMetadata()
-                    .withName("nginx-deployment")
+                    .withName(name + "-deployment")
                     .addToLabels("app", "nginx")
                     .endMetadata()
                     .withNewSpec()
@@ -30,7 +30,7 @@ public class CreateDeployment {
                     .endMetadata()
                     .withNewSpec()
                     .addNewContainer()
-                    .withName(name)
+                    .withName("nginx")
                     .withImage("nginx:1.7.9")
                     .addNewPort().withContainerPort(80).endPort()
                     .endContainer()
