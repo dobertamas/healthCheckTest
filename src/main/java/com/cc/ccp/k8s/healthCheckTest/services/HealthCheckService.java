@@ -1,5 +1,7 @@
 package com.cc.ccp.k8s.healthCheckTest.services;
 
+import com.cc.ccp.k8s.healthCheckTest.command.DisableService;
+import com.cc.ccp.k8s.healthCheckTest.command.KubernetesActionExecutor;
 import com.cc.ccp.k8s.healthCheckTest.model.KubernetesObjectToDisable;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -10,7 +12,9 @@ public class HealthCheckService {
 
     public boolean createSendCommand(KubernetesObjectToDisable kubernetesObjectToDisable) {
         log.info("service received: " + kubernetesObjectToDisable.getName());
-        return false;
+        KubernetesActionExecutor kubernetesActionExecutor = new KubernetesActionExecutor();
+        kubernetesActionExecutor.executeOperation(new DisableService(),kubernetesObjectToDisable.getName(),null);
+        return true;
 
     }
 }
