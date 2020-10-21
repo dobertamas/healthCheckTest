@@ -21,12 +21,13 @@ public class HealthCheckController {
     }
 
     @PostMapping("/disable")
-    public ResponseEntity postController(
+    public ResponseEntity<?> postController(
             @NonNull
             @RequestBody KubernetesObjectToDisable kubernetesObjectToDisable) {
         log.info("controller received: " + kubernetesObjectToDisable.getName());
 
-        healthCheckService.createSendCommand(kubernetesObjectToDisable);
+        final boolean sendCommand = healthCheckService.createSendCommand(kubernetesObjectToDisable);
+        log.info("sent command: " + sendCommand);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
