@@ -12,6 +12,7 @@ public class CreateDeploymentCommand implements KubernetesAction {
         // Name will be the action we need to perform like createDeployment.
         // Possible actions can be stored in enum.
         CreateDeployment createDeployment = new CreateDeployment();
+        log.info("creating deployment with the name " + name);
         createDeployment.create(name);
     }
 }
