@@ -7,12 +7,12 @@ import lombok.extern.slf4j.Slf4j;
 public class CreateDeploymentCommand implements KubernetesAction {
 
     @Override
-    public void execute(String name, String location) {
+    public void execute(String deploymentName, String namespace) {
         // Look up the actual location of the service; probably from some mapping file
         // Name will be the action we need to perform like createDeployment.
         // Possible actions can be stored in enum.
         CreateDeployment createDeployment = new CreateDeployment();
-        log.info("creating deployment with the name " + name);
-        createDeployment.create(name);
+        log.info("creating deployment with the name " + deploymentName);
+        createDeployment.create(deploymentName,namespace);
     }
 }
