@@ -11,12 +11,12 @@ public class CreateDeployment {
 
     // Based on Example 3 from https://developers.redhat.com/blog/2020/05/20/getting-started-with-the-fabric8-kubernetes-java-client/
     // Locally I could see on the Dashboard that the new Deployment was added
-    public void create(String name) {
+    public void create(String deploymentName, String namespace) {
         try (KubernetesClient client = new DefaultKubernetesClient()) {
             log.info("creating deployment");
             Deployment deployment = new DeploymentBuilder()
                     .withNewMetadata()
-                    .withName(name + "-deployment")
+                    .withName(deploymentName)
                     .addToLabels("app", "nginx")
                     .endMetadata()
                     .withNewSpec()
@@ -39,7 +39,7 @@ public class CreateDeployment {
                     .endSpec()
                     .build();
 
-            client.apps().deployments().inNamespace("default").createOrReplace(deployment);
+            client.apps().deployments().inNamespace(namespace).createOrReplace(deployment);
         }
     }
 
