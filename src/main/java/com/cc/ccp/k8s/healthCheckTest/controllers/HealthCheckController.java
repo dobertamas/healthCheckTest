@@ -20,13 +20,24 @@ public class HealthCheckController {
         this.healthCheckService = healthCheckService;
     }
 
-    @PostMapping("/disable")
-    public ResponseEntity<?> postController(
+    @PostMapping("/create")
+    public ResponseEntity<?> createController(
             @NonNull
             @RequestBody KubernetesObjectToDisable kubernetesObjectToDisable) {
-        log.info("controller received: " + kubernetesObjectToDisable.getName());
+        log.info("controller received request about: " + kubernetesObjectToDisable.getDeploymentName());
 
-        final boolean sendCommand = healthCheckService.createSendCommand(kubernetesObjectToDisable);
+        final boolean sendCommand = healthCheckService.createDeploymentSendCommand(kubernetesObjectToDisable);
+        log.info("sent command: " + sendCommand);
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
+
+    @PostMapping("/scaleDown")
+    public ResponseEntity<?> scaleDownController(
+            @NonNull
+            @RequestBody KubernetesObjectToDisable kubernetesObjectToDisable) {
+        log.info("controller received request about : " + kubernetesObjectToDisable.getDeploymentName());
+
+        final boolean sendCommand = healthCheckService.scaleDownDeploymentCommand(kubernetesObjectToDisable);
         log.info("sent command: " + sendCommand);
         return ResponseEntity.ok(HttpStatus.OK);
     }
