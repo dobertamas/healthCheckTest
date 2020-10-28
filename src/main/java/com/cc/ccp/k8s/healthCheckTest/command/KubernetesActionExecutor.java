@@ -9,4 +9,10 @@ public class KubernetesActionExecutor {
         log.info("executing kubernetesAction ");
         kubernetesAction.execute(deploymentName, namespace);
     }
+
+    public void executeOperation(KubernetesAction kubernetesAction, String deploymentName, String namespace, Integer podsToHave) {
+        log.info("executing kubernetesAction ");
+        kubernetesAction.execute(deploymentName, namespace, podsToHave);
+    }
+
 }

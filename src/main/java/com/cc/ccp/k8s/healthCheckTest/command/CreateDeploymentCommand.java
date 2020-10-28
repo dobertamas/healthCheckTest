@@ -15,4 +15,9 @@ public class CreateDeploymentCommand implements KubernetesAction {
         log.info("creating deployment with the name " + deploymentName);
         createDeployment.create(deploymentName,namespace);
     }
+
+    @Override
+    public void execute(String deploymentName, String namespace, Integer podsToHave) {
+        // currently an empty implementation
+    }
 }

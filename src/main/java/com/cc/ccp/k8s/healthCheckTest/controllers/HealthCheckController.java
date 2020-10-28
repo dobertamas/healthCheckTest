@@ -1,6 +1,7 @@
 package com.cc.ccp.k8s.healthCheckTest.controllers;
 
-import com.cc.ccp.k8s.healthCheckTest.model.KubernetesObjectToDisable;
+import com.cc.ccp.k8s.healthCheckTest.model.KubernetesDeploymentToDisable;
+import com.cc.ccp.k8s.healthCheckTest.model.KubernetesDeploymentToScaleUp;
 import com.cc.ccp.k8s.healthCheckTest.services.HealthCheckService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ public class HealthCheckController {
     @PostMapping("/create")
     public ResponseEntity<?> createController(
             @NonNull
-            @RequestBody KubernetesObjectToDisable kubernetesObjectToDisable) {
+            @RequestBody KubernetesDeploymentToDisable kubernetesObjectToDisable) {
         log.info("controller received request about: " + kubernetesObjectToDisable.getDeploymentName());
 
         final boolean sendCommand = healthCheckService.createDeploymentSendCommand(kubernetesObjectToDisable);
@@ -34,10 +35,22 @@ public class HealthCheckController {
     @PostMapping("/scaleDown")
     public ResponseEntity<?> scaleDownController(
             @NonNull
-            @RequestBody KubernetesObjectToDisable kubernetesObjectToDisable) {
+            @RequestBody KubernetesDeploymentToDisable kubernetesObjectToDisable) {
         log.info("controller received request about : " + kubernetesObjectToDisable.getDeploymentName());
 
         final boolean sendCommand = healthCheckService.scaleDownDeploymentCommand(kubernetesObjectToDisable);
+        log.info("sent command: " + sendCommand);
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
+
+    @PostMapping("/scaleUp")
+    public ResponseEntity<?> scaleUpController(
+            @NonNull
+            @RequestBody KubernetesDeploymentToScaleUp kubernetesDeploymentToScaleUp) {
+        log.info("controller received request about : " +
+                kubernetesDeploymentToScaleUp.getDeploymentName() + " for " + kubernetesDeploymentToScaleUp.getPodsToHave() + " pods");
+
+        final boolean sendCommand = healthCheckService.scaleUpDeploymentCommand(kubernetesDeploymentToScaleUp);
         log.info("sent command: " + sendCommand);
         return ResponseEntity.ok(HttpStatus.OK);
     }

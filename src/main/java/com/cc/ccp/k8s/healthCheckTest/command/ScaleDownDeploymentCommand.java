@@ -13,4 +13,10 @@ public class ScaleDownDeploymentCommand implements KubernetesAction {
         scaleDownDeployment.scaleDownWithNamespace(deploymentName, namespace);
 
     }
+
+    @Override
+    public void execute(String deploymentName, String namespace, Integer podsToHave) {
+        // currently an empty implementation
+    }
+
 }
