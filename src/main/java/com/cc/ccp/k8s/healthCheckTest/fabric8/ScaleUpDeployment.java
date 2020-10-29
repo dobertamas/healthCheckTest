@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ScaleUpDeployment {
 
-
     public void scaleUpDeployment(String deployment, String namespace, Integer podsToHave) {
         try (KubernetesClient client = new DefaultKubernetesClient()) {
             log.info("namespace: " + namespace);
