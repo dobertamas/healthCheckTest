@@ -14,21 +14,21 @@ import org.springframework.stereotype.Service;
 public class HealthCheckService {
 
     public boolean createDeploymentSendCommand(KubernetesDeploymentToDisable kubernetesObjectToDisable) {
-        log.info("service received: " + kubernetesObjectToDisable.getDeploymentName());
+        log.info("service received request about deployment " + kubernetesObjectToDisable.getDeploymentName());
         KubernetesActionExecutor kubernetesActionExecutor = new KubernetesActionExecutor();
         kubernetesActionExecutor.executeOperation(new CreateDeploymentCommand(), kubernetesObjectToDisable.getDeploymentName(), kubernetesObjectToDisable.getNamespace());
         return true;
     }
 
     public boolean scaleDownDeploymentCommand(KubernetesDeploymentToDisable kubernetesObjectToDisable) {
-        log.info("service received: " + kubernetesObjectToDisable.getDeploymentName());
+        log.info("service received request about deployment " + kubernetesObjectToDisable.getDeploymentName());
         KubernetesActionExecutor kubernetesActionExecutor = new KubernetesActionExecutor();
         kubernetesActionExecutor.executeOperation(new ScaleDownDeploymentCommand(), kubernetesObjectToDisable.getDeploymentName(), kubernetesObjectToDisable.getNamespace());
         return true;
     }
 
     public boolean scaleUpDeploymentCommand(KubernetesDeploymentToScaleUp kubernetesDeploymentToScaleUp) {
-        log.info("service received: " + kubernetesDeploymentToScaleUp.getDeploymentName() + " " +
+        log.info("service received request about deployment " + kubernetesDeploymentToScaleUp.getDeploymentName() + " to have " +
                 kubernetesDeploymentToScaleUp.getPodsToHave() + " pods");
         KubernetesActionExecutor kubernetesActionExecutor = new KubernetesActionExecutor();
         kubernetesActionExecutor.executeOperation(new ScaleUpDeploymentCommand(),
