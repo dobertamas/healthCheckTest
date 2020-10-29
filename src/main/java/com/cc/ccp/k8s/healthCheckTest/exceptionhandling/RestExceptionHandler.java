@@ -14,7 +14,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(io.fabric8.kubernetes.client.KubernetesClientException.class)
     protected ResponseEntity<Object> handleEKubernetesClientException(io.fabric8.kubernetes.client.KubernetesClientException fkckex) {
-        return buildResponseEntity(new ApiError(HttpStatus.SERVICE_UNAVAILABLE, "KubernetesClientException - perhaps request body needs update?", fkckex));
+        return buildResponseEntity(new ApiError(HttpStatus.NOT_FOUND, "KubernetesClientException - perhaps request body needs update?", fkckex));
     }
 
 
